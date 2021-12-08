@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragmentos/layout">
+<div th:fragment="conteudo">
+  <div class="container">
+    <h1>Lista de Usuarios</h1>
+   
+    <table class="table table-dark table-hover">
+      <tr>
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>Senha</th>
+        <th>Ações</th>
+      </tr>
+      <tr th:each="us:${lista}" th:object="${us}">
+        <td th:text="*{id}">id</td>
+        <td th:text="*{email}">email</td>
+        <td th:text="*{senha}">senha</td>
+        <td>
+          <a th:href="@{/editar-usuario(id=*{id})}">Editar</a>
+          <a th:href="@{/excluir-usuario(id=*{id})}">Excluir</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+</html>
