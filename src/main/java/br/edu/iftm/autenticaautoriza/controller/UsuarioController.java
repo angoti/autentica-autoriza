@@ -1,6 +1,7 @@
 package br.edu.iftm.autenticaautoriza.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +35,12 @@ public class UsuarioController {
     @PostMapping(value = "novo-usuario")
     public String cadastraNovoUsuario(Usuario usuario) {
         System.out.println("-------------------------> gravando usuario");
-        if (usuario.getId() == null)
+        if (usuario.getId() == null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(usuario.getSenha());
+            usuario.setSenha(encodedPassword);
             usuarioRepository.gravaUsuario(usuario);
-        else
+        } else
             usuarioRepository.atualizaUsuario(usuario);
         return "redirect:/usuarios";
     }
@@ -49,11 +53,15 @@ public class UsuarioController {
         return "form-usuario";
     }
 
-    @GetMapping(value="excluir-usuario")
+    @GetMapping(value = "excluir-usuario")
     public String excluiUsuario(@RequestParam(value = "id", required = true) Integer id_usuario) {
         usuarioRepository.excluirUsuario(id_usuario);
         return "redirect:/usuarios";
     }
-    
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
 }

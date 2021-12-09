@@ -1,0 +1,27 @@
+<!-- ******************************************
+*  Created On : Wed Dec 08 2021
+*  Modelo de arquivo HTML para adicionar nova tela de conteúdo dentro do layout estabelecido no arquivo fragmentos/layout.html
+******************************************* -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragmentos/layout">
+<div th:fragment="conteudo">
+    <!-- insira seu código aqui -->
+    <div class="container col-6">
+        <h1>Autenticação (login)</h1>
+        <div th:if="${param.error}">
+            Usuario/senha inválidos</div>
+        <div th:if="${param.logout}">
+            Você foi logged out</div>
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <input class="form-control" type="text" name="username" placeholder="E-mail" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Senha" />
+            </div>
+            <input class="btn btn-primary mt-3" type="submit" value="Log in" />
+        </form>
+    </div>
+</div>
+
+</html>

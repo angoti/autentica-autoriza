@@ -48,4 +48,16 @@ public class UsuarioRepository {
         String consulta = "update usuarios set email = ?, senha = ? where usuario_id = ?";
         return jdbc.update(consulta, usuario.getEmail(), usuario.getSenha(), usuario.getId());
     }
+
+    public Usuario buscaPorEmail(String username) {
+        return jdbc.queryForObject(
+                "select * from usuarios where email = ?",
+                (resultados, linha) -> {
+                    return new Usuario(
+                        resultados.getInt("usuario_id"),
+                        resultados.getString("email"),
+                        resultados.getString("senha"));
+                },
+                username);
+    }
 }
