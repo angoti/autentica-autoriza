@@ -1,0 +1,17 @@
+<!-- ******************************************
+*  Created On : Tue Dec 14 2021
+*  Modelo de arquivo HTML para adicionar nova tela de conteúdo dentro do layout estabelecido no arquivo fragmentos/layout.html
+******************************************* -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="fragmentos/layout">
+<div th:fragment="conteudo" class="container">
+
+    <div class="jumbotron text-center">
+        <h1 class="alert alert-danger" th:text="'Erro ' + (${status}?${status}:'')">Erro!</h1>
+        <h6 class="alert alert-danger" th:if="${mensagem}" th:text="${mensagem}"></h6>
+        <h6 class="alert alert-danger" th:if="${error}" th:text="${error}"></h6>
+    </div>
+
+</div>
+
+</html>
