@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import br.edu.iftm.autenticaautoriza.model.Papel;
 import br.edu.iftm.autenticaautoriza.model.Usuario;
 
 @Repository
@@ -54,10 +55,15 @@ public class UsuarioRepository {
                 "select * from usuarios where email = ?",
                 (resultados, linha) -> {
                     return new Usuario(
-                        resultados.getInt("usuario_id"),
-                        resultados.getString("email"),
-                        resultados.getString("senha"));
+                            resultados.getInt("usuario_id"),
+                            resultados.getString("email"),
+                            resultados.getString("senha"));
                 },
                 username);
+    }
+
+    public List<Papel> buscaPapeisDoUsuario(Integer id) {
+        String consulta = "select papeis.nome from papeis, usuarios, usuarios_papeis where usuarios_papeis.papel_id = papeis.papel_id and usuarios_papeis.usuario_id = usuarios.usuario_id and usuarios.usuario_id = 2;";
+        return jdbc.query(consulta, (res, linha) -> new Papel(res.getString("nome")));
     }
 }

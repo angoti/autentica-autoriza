@@ -1,18 +1,28 @@
 package br.edu.iftm.autenticaautoriza.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class Usuario {
     private Integer id;
-
     private String email;
-
     @NotEmpty
-    @Size(min = 6, message="a senha de ter no mínimo 6 caracteres")
+    @Size(min = 6, message = "a senha de ter no mínimo 6 caracteres")
     private String senha;
 
+    private List<Papel> papeis = new ArrayList<Papel>();
+
     public Usuario() {
+    }
+
+    public Usuario(Integer id, String email, String senha, List<Papel> papeis) {
+        this.id = id;
+        this.email = email;
+        this.senha = senha;
+        this.papeis = papeis;
     }
 
     public Usuario(Integer id, String email, String senha) {
@@ -45,13 +55,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " id='" + getId() + "'" +
-                ", email='" + getEmail() + "'" +
-                ", senha='" + getSenha() + "'" +
-                "}";
+    public List<Papel> getPapeis() {
+        return this.papeis;
     }
 
+    public void setPapeis(List<Papel> papeis) {
+        this.papeis = papeis;
+    }
+    
 }
