@@ -14,13 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 
-    // @Override
-    // protected void configure(HttpSecurity http) throws Exception {
-    // System.out.println("configurando segurança");
-    // http
-    // .authorizeHttpRequests().anyRequest().permitAll();
-    // }
-
     @Bean
     public UserDetailsService userDetailsService() {
         return new MyUserDetailsService();

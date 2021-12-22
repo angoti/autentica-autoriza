@@ -1,15 +1,18 @@
 package br.edu.iftm.autenticaautoriza.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.edu.iftm.autenticaautoriza.model.Usuario;
 import br.edu.iftm.autenticaautoriza.repository.UsuarioRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UsuarioController {
@@ -33,8 +36,10 @@ public class UsuarioController {
     // método responsável por receber um objeto do tipo Usuario preenchido pelo
     // usuário em um form html
     @PostMapping(value = "novo-usuario")
-    public String cadastraNovoUsuario(Usuario usuario) {
-        System.out.println("-------------------------> gravando usuario");
+    public String cadastraNovoUsuario(@Valid Usuario usuario, BindingResult result) {
+        if (result.hasErrors()) {
+            return "form-usuario";
+        }
         if (usuario.getId() == null) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(usuario.getSenha());
