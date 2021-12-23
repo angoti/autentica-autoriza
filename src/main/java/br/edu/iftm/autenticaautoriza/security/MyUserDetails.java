@@ -3,7 +3,6 @@ package br.edu.iftm.autenticaautoriza.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,13 +26,14 @@ public class MyUserDetails implements UserDetails {
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Papel> papeis = usuarioRepository.buscaPapeisDoUsuario(usuario.getId());
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        // List<Papel> papeis = usuarioRepository.buscaPapeisDoUsuario(usuario.getId());
+        // List<SimpleGrantedAuthority> authorities = new ArrayList<>();
          
-        for (Papel papel : papeis) {
-            authorities.add(new SimpleGrantedAuthority(papel.getNome()));
-        }
-        return authorities;
+        // for (Papel papel : papeis) {
+        //     authorities.add(new SimpleGrantedAuthority(papel.getNome()));
+        // }
+        // return authorities;
+        return null;
     }
 
     @Override
